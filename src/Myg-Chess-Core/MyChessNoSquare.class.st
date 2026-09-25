@@ -15,6 +15,11 @@ MyChessNoSquare >> hasPiece [
 	^ false	
 ]
 
+{ #category : 'testing' }
+MyChessNoSquare >> isValid [ 
+	^ false
+]
+
 { #category : 'accessing' }
 MyChessNoSquare >> left [ 
 	^ self
