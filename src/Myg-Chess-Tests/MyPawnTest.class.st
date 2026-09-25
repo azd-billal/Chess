@@ -34,3 +34,14 @@ MyPawnTest >> testMovesTwoSquares [
 			(#( a3 a4) collect: [ :name |
 				 board at: name ])
 ]
+
+{ #category : 'tests' }
+MyPawnTest >> testReplaceMyInitPawnWithMyPawnAfterMove [
+
+	| pawn board|
+	board := MyChessBoard empty.
+	board at: 'a2' put: (pawn := MyInitPawn white).
+	pawn moveTo: 'a3'.
+	
+	self assert: pawn class equals: MyPawn.
+]
