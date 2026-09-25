@@ -11,7 +11,6 @@ MyInitPawn >> moveTo: aSquare [
 	| newPawn |
 	
 	super moveTo: aSquare.
-	square = aSquare ifFalse: [ ^ self ].
 	newPawn := MyPawn new.
 	newPawn square: aSquare.
 	newPawn color: self color.
@@ -25,7 +24,6 @@ MyInitPawn >> targetSquaresLegal: aBoolean [
 
 	| oneStep twoStep |
 	oneStep := super targetSquaresLegal: aBoolean.
-	oneStep ifEmpty: [ ^ #() ]. 
 	twoStep := (self isWhite
 		   ifTrue: [ { square up up} ]
 		   ifFalse: [ { square down down } ]) select: [ :s |
