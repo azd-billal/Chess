@@ -5,6 +5,21 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'path commands' }
+MyInitPawn >> moveTo: aSquare [
+	
+	| newPawn |
+	
+	super moveTo: aSquare.
+	square = aSquare ifFalse: [ ^ self ].
+	newPawn := MyPawn new.
+	newPawn square: aSquare.
+	newPawn color: self color.
+	
+	self becomeForward: newPawn.
+	
+]
+
 { #category : 'rendering' }
 MyInitPawn >> targetSquaresLegal: aBoolean [ 
 
