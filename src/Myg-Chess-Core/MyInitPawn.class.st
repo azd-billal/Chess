@@ -13,9 +13,10 @@ MyInitPawn >> moveTo: aSquare [
 	super moveTo: aSquare.
 	newPawn := MyPawn new.
 	newPawn square: aSquare.
-	newPawn color: self color.
+	newPawn color: color.
 	
-	self becomeForward: newPawn.
+	aSquare contents: newPawn.
+	
 	
 ]
 
