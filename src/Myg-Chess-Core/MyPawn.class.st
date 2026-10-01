@@ -20,9 +20,21 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	^ (self isWhite
+	| simpleMove diagonal |
+
+	 simpleMove := (self isWhite
 		   ifTrue: [ { square up } ]
 		   ifFalse: [ { square down } ]) select: [ :s |
 		  s isValid and: [
-			  s hasPiece not ] ]
+			  s hasPiece not ] ].
+	
+	diagonal := (self isWhite
+		   ifTrue: [ { square up left. square up right } ]
+		   ifFalse: [ { square down left. square down right } ]) select: [ :s |
+		  s isValid and: [
+			  s hasPiece and: [ 
+				 s contents color ~= color ] ] ].
+	
+
+	^ simpleMove, diagonal.
 ]
