@@ -164,7 +164,7 @@ MyPiece >> legalTargetSquares [
 { #category : 'path commands' }
 MyPiece >> moveTo: aSquare [
 
-	(self legalTargetSquares includes: aSquare) ifFalse: [ ^ self ].
+	square board game previousMove: nil.
 
 	square emptyContents.
 	square := aSquare.

@@ -8,12 +8,18 @@ Class {
 { #category : 'path commands' }
 MyInitPawn >> moveTo: aSquare [
 	
-	| newPawn |
+	| newPawn doubleStep game|
+
+	game := square board game.
+	doubleStep := { square up up. square down down }.
 	
 	super moveTo: aSquare.
 	newPawn := MyPawn new.
 	newPawn square: aSquare.
 	newPawn color: color.
+	
+	(doubleStep includes: aSquare)
+		ifTrue: [ game previousMove: newPawn ].
 	
 	aSquare contents: newPawn.
 	

@@ -20,6 +20,7 @@ Class {
 		'whitePlayer',
 		'blackPlayer',
 		'moveCount',
+		'previousMove',
 		'movesLabel',
 		'moveCountLabel',
 		'moves',
@@ -146,6 +147,18 @@ MyChessGame >> play [
 			moveCount := moveCount + 1.
 			currentPlayer := whitePlayer ].
 	self checkForMate
+]
+
+{ #category : 'accessing' }
+MyChessGame >> previousMove [
+
+	^ previousMove
+]
+
+{ #category : 'accessing' }
+MyChessGame >> previousMove: anObject [
+
+	previousMove := anObject
 ]
 
 { #category : 'moves' }
