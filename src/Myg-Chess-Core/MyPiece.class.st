@@ -164,8 +164,7 @@ MyPiece >> legalTargetSquares [
 { #category : 'path commands' }
 MyPiece >> moveTo: aSquare [
 
-	square board game previousMove: nil.
-
+	square board game ifNotNil: [ :game | game previousMove: nil ].
 	square emptyContents.
 	square := aSquare.
 	aSquare contents: self

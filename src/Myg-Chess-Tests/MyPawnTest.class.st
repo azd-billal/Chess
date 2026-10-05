@@ -41,7 +41,7 @@ MyPawnTest >> testReplaceMyInitPawnWithMyPawnAfterMove [
 	| pawn board|
 	board := MyChessBoard empty.
 	board at: 'a2' put: (pawn := MyInitPawn white).
-	pawn moveTo: 'a3'.
+	pawn moveTo: (board at: 'a3').
 	
-	self assert: pawn class equals: MyPawn.
+	self assert: (board at: 'a3') contents class equals: MyPawn
 ]

@@ -18,8 +18,11 @@ MyInitPawn >> moveTo: aSquare [
 	newPawn square: aSquare.
 	newPawn color: color.
 	
-	(doubleStep includes: aSquare)
-		ifTrue: [ game previousMove: newPawn ].
+	(doubleStep includes: aSquare) 
+				ifTrue: [
+						game ifNotNil: [ 
+							game previousMove: newPawn ] 
+						].
 	
 	aSquare contents: newPawn.
 	
