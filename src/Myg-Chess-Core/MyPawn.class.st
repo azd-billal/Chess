@@ -69,7 +69,8 @@ MyPawn >> targetSquaresLegal: aBoolean [
 						                    ifTrue: [ s down ]
 						                    ifFalse: [ s up ].
 					           opposant hasPiece and: [
-						           opposant contents == square board game previousMove ] ] ] ].
+												square board game notNil and: [ 
+						          					 opposant contents == square board game previousMove ] ] ] ] ].
 
 	^ simpleMove, diagonal, passant.
 ]

@@ -36,6 +36,29 @@ MyPawnTest >> testMovesTwoSquares [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testPawnCanCaptureEnPassant [
+
+	| blackPawn whitePawn squares board |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd5' put: (whitePawn := MyPawn white).
+	board at: 'c7' put: (blackPawn := MyInitPawn black).
+	
+	blackPawn moveTo: (board at: 'c5').
+	
+	squares := whitePawn targetSquares.
+	self
+		assertCollection: squares
+		includesAll:
+			(#( c6 d6 ) collect: [ :name |
+				 board at: name ]).
+			
+	whitePawn moveTo: (board at: 'c6').
+			
+	self assert: (board at: 'c5') contents equals: nil.
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testReplaceMyInitPawnWithMyPawnAfterMove [
 
 	| pawn board|
