@@ -29,7 +29,7 @@ MyPawn >> moveTo: aSquare [
 	isEnPassant ifTrue: [
 						(self isWhite
 			               ifTrue: [ aSquare down ]
-			               ifFalse: [ aSquare up ]) contents: nil.
+			               ifFalse: [ aSquare up ]) contents: MyNoPiece new.
 								].
 							
 	super moveTo: aSquare.
