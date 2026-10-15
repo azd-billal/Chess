@@ -18,19 +18,10 @@ MyPawn >> moveTo: aSquare [
 	| isEnPassant |
 	
 	isEnPassant := aSquare hasPiece not and: [
-		               (self isWhite
-			               ifTrue: [
-				               aSquare = square up left or: [
-					               aSquare = square up right ] ]
-			               ifFalse: [
-				               aSquare = square down left or: [
-					               aSquare = square down right ] ])].
+		               (self direction moveDiagonals: square) includes: aSquare ].
 
 	isEnPassant ifTrue: [
-						(self isWhite
-			               ifTrue: [ aSquare down ]
-			               ifFalse: [ aSquare up ]) contents: MyNoPiece new.
-								].
+						(self direction moveBack: aSquare) emptyContents ].
 							
 	super moveTo: aSquare.
 ]
@@ -46,31 +37,20 @@ MyPawn >> targetSquaresLegal: aBoolean [
 
 	| simpleMove diagonal passant opposant |
 
-	 simpleMove := (self isWhite
-		   ifTrue: [ { square up } ]
-		   ifFalse: [ { square down } ]) select: [ :s |
-		  s isValid and: [
-			  s hasPiece not ] ].
+	 simpleMove := { self direction moveForward: square } select: [ :s |
+		s isValid and: [ s hasPiece not ] ].
 	
-	diagonal := (self isWhite
-		   ifTrue: [ { square up left. square up right } ]
-		   ifFalse: [ { square down left. square down right } ]) select: [ :s |
-		  s isValid and: [
-			  s hasPiece and: [ 
-				 s contents color ~= color ] ] ].
+	diagonal := (self direction moveDiagonals: square) select: [ :s |
+		s isValid and: [ s hasPiece and: [ s contents color ~= color ] ] ].
 	
-	passant := (self isWhite
-    ifTrue: [ { square up left. square up right } ]
-    ifFalse: [ { square down left. square down right } ])
-    select: [ :s |
-        s isValid and: [
-            s hasPiece not and: [
-                opposant := self isWhite
-						                    ifTrue: [ s down ]
-						                    ifFalse: [ s up ].
-					           opposant hasPiece and: [
-												square board game notNil and: [ 
-						          					 opposant contents == square board game previousMove ] ] ] ] ].
-
+	passant := (self direction moveDiagonals: square) select: [ :s |
+		s isValid and: [
+			s hasPiece not and: [
+				opposant := self direction moveBack: s.
+				opposant hasPiece and: [
+					square board game notNil and: [
+						opposant contents == square board game previousMove ] ] ] ] ].
+	
 	^ simpleMove, diagonal, passant.
+	
 ]
