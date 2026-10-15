@@ -3,7 +3,8 @@ Class {
 	#superclass : 'Object',
 	#instVars : [
 		'color',
-		'square'
+		'square',
+		'colorStrategy'
 	],
 	#category : 'Myg-Chess-Core',
 	#package : 'Myg-Chess-Core'
@@ -77,6 +78,28 @@ MyPiece >> color [
 MyPiece >> color: aColor [
 
 	color := aColor
+]
+
+{ #category : 'accessing' }
+MyPiece >> colorStrategy [
+
+	^ colorStrategy := color isBlack
+			ifTrue: [ MyBlackColor new ]
+			ifFalse: [ MyWhiteColor new ]
+]
+
+{ #category : 'accessing' }
+MyPiece >> colorStrategy: anObject [
+
+	^ colorStrategy ifNil: [
+		colorStrategy := color isBlack
+			ifTrue: [ MyBlackColor new ]
+			ifFalse: [ MyWhiteColor new ] ]
+]
+
+{ #category : 'accessing' }
+MyPiece >> direction [ 
+	^ self colorStrategy direction.
 ]
 
 { #category : 'rendering' }
