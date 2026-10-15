@@ -19,9 +19,9 @@ MyKing >> basicTargetSquares [
 		square right.
 		square up right.
 		square up.
+		square up left.
 		square left.
-		square left.
-		square left down.
+		square down left.
 		square down.
 		square down right
 	}
