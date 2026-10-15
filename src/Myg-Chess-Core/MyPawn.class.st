@@ -29,7 +29,7 @@ MyPawn >> moveTo: aSquare [
 { #category : 'rendering' }
 MyPawn >> renderPieceOn: aSquare [ 
 	
-	^ aSquare renderPawn: self
+	^ self colorStrategy renderPawnOn: aSquare
 ]
 
 { #category : 'rendering' }

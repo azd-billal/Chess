@@ -28,8 +28,7 @@ MyNoPiece >> isWhite [
 
 { #category : 'rendering' }
 MyNoPiece >> renderPieceOn: aSquare [
-
-	^ aSquare renderNoPiece: self
+	^ aSquare renderEmpty
 ]
 
 { #category : 'rendering' }
