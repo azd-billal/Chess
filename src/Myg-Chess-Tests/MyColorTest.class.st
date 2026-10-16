@@ -1,17 +1,17 @@
 Class {
-	#name : 'MyColorTests',
+	#name : 'MyColorTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyColorTests >> testBlackColorHasBlackDirection [
+MyColorTest >> testBlackColorHasBlackDirection [
 	self assert: MyBlackColor new direction class equals: MyBlackDirection.
 ]
 
 { #category : 'tests' }
-MyColorTests >> testBlackColorRendersBlackPawn [
+MyColorTest >> testBlackColorRendersBlackPawn [
 
 	| square |
 	square := MyChessBoard empty at: 'a1'.
@@ -21,7 +21,7 @@ MyColorTests >> testBlackColorRendersBlackPawn [
 ]
 
 { #category : 'tests' }
-MyColorTests >> testWhiteAndBlackPawnRenderDifferently [
+MyColorTest >> testWhiteAndBlackPawnRenderDifferently [
 
 	| square |
 	square := MyChessBoard empty at: 'a1'.
@@ -30,12 +30,12 @@ MyColorTests >> testWhiteAndBlackPawnRenderDifferently [
 ]
 
 { #category : 'tests' }
-MyColorTests >> testWhiteColorHasWhiteDirection [
+MyColorTest >> testWhiteColorHasWhiteDirection [
 	self assert: MyWhiteColor new direction class equals: MyWhiteDirection
 ]
 
 { #category : 'tests' }
-MyColorTests >> testWhiteColorRendersWhitePawn [
+MyColorTest >> testWhiteColorRendersWhitePawn [
 
 	| square |
 	square := MyChessBoard empty at: 'a1'.
