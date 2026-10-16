@@ -37,6 +37,29 @@ MyPawnTest >> testCannotCaptureEnPassantIfNotImmediatelyAfter [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testInitPawnBlockedOnFirstSquareCannotMoveTwo [
+
+	| board pawn |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'e2' put: (pawn := MyInitPawn white).
+	board at: 'e3' put: MyPawn black.
+	self assert: (pawn targetSquares includes: (board at: 'e4')) equals: false
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testInitPawnBlockedOnSecondSquareCanOnlyMoveOne [
+
+	| board pawn |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'e2' put: (pawn := MyInitPawn white).
+	board at: 'e4' put: MyPawn black.
+	self assert: (pawn targetSquares includes: (board at: 'e3')).
+	self assert: (pawn targetSquares includes: (board at: 'e4')) equals: false
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testMoves [
 
 	| pawn squares board |
@@ -91,6 +114,17 @@ MyPawnTest >> testPawnCanCaptureEnPassant [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testPawnCannotMoveDiagonalToNoPieceSquare [
+	| board pawn squares |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd4' put: (pawn := MyPawn white).
+	squares := pawn targetSquares.
+	self assert: (squares includes: (board at: 'c5')) equals: false.
+	self assert: (squares includes: (board at: 'e5')) equals: false.
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testReplaceMyInitPawnWithMyPawnAfterMove [
 
 	| pawn board|
@@ -99,4 +133,27 @@ MyPawnTest >> testReplaceMyInitPawnWithMyPawnAfterMove [
 	pawn moveTo: (board at: 'a3').
 	
 	self assert: (board at: 'a3') contents class equals: MyPawn
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testWhitePawnCapturesDiagonalLeft [
+
+	| board pawn |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd4' put: (pawn := MyPawn white).
+	board at: 'c5' put: MyPawn black.
+	self assert: (pawn targetSquares includes: (board at: 'c5')).
+
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testWhitePawnCapturesDiagonalRight [
+
+	| board pawn |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd4' put: (pawn := MyPawn white).
+	board at: 'e5' put: MyPawn black.
+	self assert: (pawn targetSquares includes: (board at: 'e5'))
 ]
