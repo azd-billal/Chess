@@ -35,7 +35,8 @@ MyInitPawn >> targetSquaresLegal: aBoolean [
 	| oneStep twoStep |
 	oneStep := super targetSquaresLegal: aBoolean.
 	twoStep := { self direction moveDoubleForward: square } select: [ :s |
-		s isValid and: [ s hasPiece not ] ].
+		s isValid and: [ s hasPiece not and: [ 
+				(self direction moveForward: square) hasPiece not ]]].
 	
 		
 	^ oneStep , twoStep.
