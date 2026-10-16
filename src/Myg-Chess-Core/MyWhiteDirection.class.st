@@ -7,7 +7,7 @@ Class {
 
 { #category : 'private - enumeration' }
 MyWhiteDirection >> moveBack:  aSquare [
-	^ aSquare up.
+	^ aSquare down.
 ]
 
 { #category : 'private - enumeration' }

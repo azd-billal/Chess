@@ -55,7 +55,7 @@ MyPawnTest >> testPawnCanCaptureEnPassant [
 			
 	whitePawn moveTo: (board at: 'c6').
 			
-	self assert: (board at: 'c5') contents equals: nil.
+	self assert: (board at: 'c5') contents class equals: MyNoPiece .
 ]
 
 { #category : 'tests' }
