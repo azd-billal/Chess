@@ -218,6 +218,11 @@ MyChessBoard >> initializeSquares [
 		black := black not ]
 ]
 
+{ #category : 'testing' }
+MyChessBoard >> isPreviousMove: aPiece [
+	^ game notNil and: [ game previousMove == aPiece ].
+]
+
 { #category : 'accessing' }
 MyChessBoard >> pieces [
 	

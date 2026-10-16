@@ -5,6 +5,12 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'rendering' }
+MyPawn >> diagonalMove [
+	^ (self direction moveDiagonals: square) select: [ :s |
+		s isValid and: [ s hasPiece and: [ s contents color ~= color ] ] ].
+]
+
 { #category : 'accessing' }
 MyPawn >> id [
 
@@ -27,30 +33,30 @@ MyPawn >> moveTo: aSquare [
 ]
 
 { #category : 'rendering' }
+MyPawn >> passantMove [
+	| opposant |
+	^ (self direction moveDiagonals: square) select: [ :s |
+		s isValid and: [
+			s hasPiece not and: [
+				opposant := self direction moveBack: s.
+				opposant hasPiece and: [
+					square board isPreviousMove: opposant ] ] ] ].
+]
+
+{ #category : 'rendering' }
 MyPawn >> renderPieceOn: aSquare [ 
 	
 	^ self colorStrategy renderPawnOn: aSquare
 ]
 
+{ #category : 'path commands' }
+MyPawn >> simpleMove [ 
+	^ { self direction moveForward: square } select: [ :s |
+		s isValid and: [ s hasPiece not ] ].
+]
+
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	| simpleMove diagonal passant opposant |
-
-	 simpleMove := { self direction moveForward: square } select: [ :s |
-		s isValid and: [ s hasPiece not ] ].
-	
-	diagonal := (self direction moveDiagonals: square) select: [ :s |
-		s isValid and: [ s hasPiece and: [ s contents color ~= color ] ] ].
-	
-	passant := (self direction moveDiagonals: square) select: [ :s |
-		s isValid and: [
-			s hasPiece not and: [
-				opposant := self direction moveBack: s.
-				opposant hasPiece and: [
-					square board game notNil and: [
-						opposant contents == square board game previousMove ] ] ] ] ].
-	
-	^ simpleMove, diagonal, passant.
-	
+	^ self simpleMove, self diagonalMove, self passantMove.
 ]
