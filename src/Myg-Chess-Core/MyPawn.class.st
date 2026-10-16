@@ -21,15 +21,10 @@ MyPawn >> id [
 MyPawn >> moveTo: aSquare [
 	
 	
-	| isEnPassant |
-	
-	isEnPassant := aSquare hasPiece not and: [
-		               (self direction moveDiagonals: square) includes: aSquare ].
+	(self passantMove includes: aSquare) ifTrue: [
+		(self direction moveBack: aSquare) emptyContents ].
 
-	isEnPassant ifTrue: [
-						(self direction moveBack: aSquare) emptyContents ].
-							
-	super moveTo: aSquare.
+	super moveTo: aSquare
 ]
 
 { #category : 'rendering' }
@@ -40,7 +35,7 @@ MyPawn >> passantMove [
 			s hasPiece not and: [
 				opposant := self direction moveBack: s.
 				opposant hasPiece and: [
-					square board isPreviousMove: opposant ] ] ] ].
+					square board isPreviousMove: opposant contents ] ] ] ].
 ]
 
 { #category : 'rendering' }
