@@ -6,6 +6,37 @@ Class {
 }
 
 { #category : 'tests' }
+MyPawnTest >> testCannotCaptureEnPassantAfterSingleSteps [
+
+	| blackPawn whitePawn board |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd5' put: (whitePawn := MyPawn white).
+	board at: 'c7' put: (blackPawn := MyInitPawn black).
+
+	blackPawn moveTo: (board at: 'c6').
+	blackPawn moveTo: (board at: 'c5').
+
+	self deny: (whitePawn targetSquares includes: (board at: 'c6'))
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testCannotCaptureEnPassantIfNotImmediatelyAfter [
+
+	| blackPawn otherPawn whitePawn board |
+	board := MyChessBoard empty.
+	board game: MyChessGame freshGame.
+	board at: 'd5' put: (whitePawn := MyPawn white).
+	board at: 'c7' put: (blackPawn := MyInitPawn black).
+	board at: 'h7' put: (otherPawn := MyInitPawn black).
+
+	blackPawn moveTo: (board at: 'c5').
+	otherPawn moveTo: (board at: 'h6').
+
+	self deny: (whitePawn targetSquares includes: (board at: 'c6'))
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testMoves [
 
 	| pawn squares board |
@@ -56,6 +87,7 @@ MyPawnTest >> testPawnCanCaptureEnPassant [
 	whitePawn moveTo: (board at: 'c6').
 			
 	self assert: (board at: 'c5') contents class equals: MyNoPiece .
+	self assert: (board at: 'c6') contents equals: whitePawn.
 ]
 
 { #category : 'tests' }
